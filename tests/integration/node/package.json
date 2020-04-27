@@ -8,7 +8,7 @@
     "test": "mocha --opts mocha.opts \"test/**/*.spec.js\""
   },
   "dependencies": {
-    "kinvey-node-sdk": "^4.2.3"
+    "kinvey-node-sdk": "file:../../../packages/node-sdk"
   },
   "devDependencies": {
     "@babel/core": "~7.4.3",

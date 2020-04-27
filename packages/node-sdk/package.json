@@ -29,7 +29,7 @@
   "dependencies": {
     "axios": "0.19.0",
     "events": "3.0.0",
-    "kinvey-js-sdk": "^4.2.5",
+    "kinvey-js-sdk": "file:../js-sdk",
     "lodash": "4.17.15",
     "pubnub": "4.25.0",
     "tslib": "1.10.0"
