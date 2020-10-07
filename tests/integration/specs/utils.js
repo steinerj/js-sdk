@@ -221,13 +221,13 @@ export function cleanAndPopulateCollection(collectionName, entities) {
 }
 
 export function cleanUpAppData(collectionName, createdUserIds = []) {
-  return cleanUpCollectionData(collectionName)
+  return Kinvey.User.logout()
     .then(() => {
       return deleteUsers(createdUserIds);
     })
     .then(() => {
       createdUserIds.length = 0;
-      return Kinvey.User.logout();
+      return cleanUpCollectionData(collectionName);
     });
 }
 
