@@ -18,7 +18,7 @@ before(() => {
 });
 
 
-describe('Aggregation', () => {
+describe.skip('Aggregation', () => {
   const entity1 = utilities.getEntity(utilities.randomString(), 'Europe', 1);
   const entity2 = utilities.getEntity(utilities.randomString(), 'Asia', 3);
   const entity3 = utilities.getEntity(utilities.randomString(), 'Asia', 2);
