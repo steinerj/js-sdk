@@ -13,7 +13,9 @@ if (process.env.CIRRUS_BRANCH) {
 } else {
   target += `-${os.hostname()}`;
 }
-
+console.log('-------------------->>>>>>>>');
+console.log(process.env.INSTANCE_ID);
+console.log('-------------------->>>>>>>>');
 const dotenvPath = path.join(__dirname, '.env');
 
 function updateDotEnv() {
