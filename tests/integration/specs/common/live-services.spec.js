@@ -32,7 +32,8 @@ describe('Live-services', () => {
     const initProperties = {
       appKey: process.env.APP_KEY,
       appSecret: process.env.APP_SECRET,
-      masterSecret: process.env.MASTER_SECRET
+      masterSecret: process.env.MASTER_SECRET,
+      instanceId: process.env.INSTANCE_ID
     };
     appCredentials = Kinvey.init(utilities.setOfflineProvider(initProperties, process.env.OFFLINE_STORAGE));
   });

@@ -26,7 +26,8 @@ const setupOfflineProvider = (offlineProvider) => {
   const init = Kinvey.init({
     appKey: process.env.APP_KEY,
     appSecret: process.env.APP_SECRET,
-    storage: offlineProvider
+    storage: offlineProvider,
+    instanceId: process.env.INSTANCE_ID
   });
   expect(init.storage).to.equal(offlineProvider);
   return Kinvey.User.signup()
@@ -122,7 +123,7 @@ describe('Init tests', () => {
         appKey: process.env.APP_KEY,
         appSecret: process.env.APP_SECRET,
         masterSecret: process.env.MASTER_SECRET,
-        instanceId: instanceId,
+        instanceId: process.env.INSTANCE_ID,
         appVersion: '2',
         encryptionKey: encryptionKey,
         defaultTimeout: 20000,
@@ -150,7 +151,8 @@ describe('Init tests', () => {
     it('should return kinvey response', (done) => {
       const init = Kinvey.init({
         appKey: process.env.APP_KEY,
-        appSecret: process.env.APP_SECRET
+        appSecret: process.env.APP_SECRET,
+        instanceId: process.env.INSTANCE_ID
       });
       Kinvey.ping()
         .then((res) => {

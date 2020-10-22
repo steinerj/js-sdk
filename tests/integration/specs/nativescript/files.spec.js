@@ -10,7 +10,8 @@ describe('Files', function() {
     const config = Kinvey.init({
       appKey: process.env.APP_KEY,
       appSecret: process.env.APP_SECRET,
-      masterSecret: process.env.MASTER_SECRET
+      masterSecret: process.env.MASTER_SECRET,
+      instanceId: process.env.INSTANCE_ID
     });
     return utilities.cleanUpCollection(config, '_blob', httpModule.request.bind(httpModule));
   });

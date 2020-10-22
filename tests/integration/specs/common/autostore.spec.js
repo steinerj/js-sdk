@@ -13,7 +13,8 @@ describe('AutoStore', function() {
     return init({
       appKey: process.env.APP_KEY,
       appSecret: process.env.APP_SECRET,
-      masterSecret: process.env.MASTER_SECRET
+      masterSecret: process.env.MASTER_SECRET,
+      instanceId: process.env.INSTANCE_ID
     });
   });
 
@@ -1155,6 +1156,7 @@ describe('AutoStore', function() {
         appKey: process.env.APP_KEY,
         appSecret: process.env.APP_SECRET,
         masterSecret: process.env.MASTER_SECRET,
+        instanceId: process.env.INSTANCE_ID,
         apiVersion: 4
       });
     });
@@ -1193,6 +1195,7 @@ describe('AutoStore', function() {
         appKey: process.env.APP_KEY,
         appSecret: process.env.APP_SECRET,
         masterSecret: process.env.MASTER_SECRET,
+        instanceId: process.env.INSTANCE_ID,
         apiVersion: 5
       });
     });
