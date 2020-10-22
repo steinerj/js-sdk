@@ -169,11 +169,11 @@ describe('Init tests', () => {
   });
 
   describe('offline storage', () => {
-    after((done) => {
-      utilities.cleanUpAppData(collectionName, createdUserIds)
-        .then(() => done())
-        .catch(done);
-    });
+    // after((done) => {
+    //   utilities.cleanUpAppData(collectionName, createdUserIds)
+    //     .then(() => done())
+    //     .catch(done);
+    // });
 
     it('should set IndexedDB as provider and use it to store data', async () => {
       try {
