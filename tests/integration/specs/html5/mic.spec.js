@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as Kinvey from '__SDK__';
 
 // the same redirect url should be configured on the server
-const serverHost = 'auth.kinvey.com';
+const serverHost = 'stg-us3-auth.kinvey.com';
 const redirectUrl = 'http://localhost:9876/callback';
 const authServiceId = process.env.AUTH_SERVICE_ID;
 const noRefreshAuthServiceId = process.env.NO_REFRESH_AUTH_SERVICE_ID;
@@ -146,7 +146,7 @@ const resolveAfter = (timeInMs) => {
   });
 }
 
-describe.skip('MIC Integration', () => {
+describe('MIC Integration', () => {
   before(() => {
     return Kinvey.init({
       appKey: process.env.APP_KEY,
