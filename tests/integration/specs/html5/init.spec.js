@@ -26,6 +26,7 @@ const setupOfflineProvider = (offlineProvider) => {
   const init = Kinvey.init({
     appKey: process.env.APP_KEY,
     appSecret: process.env.APP_SECRET,
+    masterSecret: process.env.MASTER_SECRET,
     storage: offlineProvider,
     instanceId: process.env.INSTANCE_ID
   });
@@ -169,11 +170,12 @@ describe('Init tests', () => {
   });
 
   describe('offline storage', () => {
-    // after((done) => {
-    //   utilities.cleanUpAppData(collectionName, createdUserIds)
-    //     .then(() => done())
-    //     .catch(done);
-    // });
+    after((done) => {
+      debugger
+      utilities.cleanUpAppData(collectionName, createdUserIds)
+        .then(() => done())
+        .catch(done);
+    });
 
     it('should set IndexedDB as provider and use it to store data', async () => {
       try {
