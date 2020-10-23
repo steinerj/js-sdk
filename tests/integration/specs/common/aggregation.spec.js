@@ -18,7 +18,6 @@ before(() => {
   return Kinvey.init(utilities.setOfflineProvider(initProperties, process.env.OFFLINE_STORAGE));
 });
 
-
 describe('Aggregation', () => {
   const entity1 = utilities.getEntity(utilities.randomString(), 'Europe', 1);
   const entity2 = utilities.getEntity(utilities.randomString(), 'Asia', 3);
