@@ -123,7 +123,7 @@ describe('Init tests', () => {
         appKey: process.env.APP_KEY,
         appSecret: process.env.APP_SECRET,
         masterSecret: process.env.MASTER_SECRET,
-        instanceId: process.env.INSTANCE_ID,
+        instanceId: instanceId,
         appVersion: '2',
         encryptionKey: encryptionKey,
         defaultTimeout: 20000,
