@@ -35,6 +35,8 @@ function updateDotEnv() {
 }
 
 function createApp() {
+  console.log(process.env);
+  console.log('---------------loggging---------------')
   return axios({
     method: 'POST',
     url: '/apps',
