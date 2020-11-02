@@ -39,7 +39,7 @@ describe('Aggregation', () => {
   // temporary adding a 1.2 sec timeout before every test, as otherwise there are sporadic failures in html5
   // this is most probably a server issue and will be investigated
   beforeEach((done) => {
-    setTimeout(() =>  done(), 1200);
+    setTimeout(() =>  done(), 2000);
   })
 
   after((done) => {
