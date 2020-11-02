@@ -35,6 +35,12 @@ describe('Aggregation', () => {
       })
       .catch(done);
   });
+  
+  // temporary adding a 1.2 sec timeout before every test, as otherwise there are sporadic failures in html5
+  // this is most probably a server issue and will be investigated
+  beforeEach((done) => {
+    setTimeout(() =>  done(), 1200);
+  })
 
   after((done) => {
     utilities.cleanUpAppData(collectionName, createdUserIds)
@@ -490,12 +496,7 @@ describe('Aggregation', () => {
       const activeStore = Kinvey.DataStore.collection(collectionName, dataStoreType);
       before((done) => {
         utilities.cleanUpCollectionData(collectionName)
-          .then(() => activeStore.save(entity1))
-          .then(() => activeStore.save(entity2))
-          .then(() => activeStore.save(entity3))
-          .then(() => activeStore.save(entity4))
-          .then(() => activeStore.save(entity5))
-          .then(() => activeStore.save(entity6))
+          .then(() => activeStore.create([entity1, entity2, entity3, entity4, entity5, entity6]))
           .then(() => done())
           .catch(done);
       });
