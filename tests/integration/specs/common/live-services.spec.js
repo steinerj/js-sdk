@@ -93,7 +93,7 @@ describe('Live-services', () => {
                 setTimeout(()=>{
                   expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
                   done();
-                }, 4000)
+                }, 6000)
               })
               .catch(done);
           })
@@ -130,7 +130,7 @@ describe('Live-services', () => {
                 setTimeout(()=>{
                   expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
                   done();
-                }, 4000)
+                }, 6000)
               })
               .catch(done);
           })
