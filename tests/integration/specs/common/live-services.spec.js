@@ -76,7 +76,11 @@ describe('Live-services', () => {
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
-      }).then(() => {
+      })
+      .then(() => {
+        return utilities.promiseTimeout(10000);
+      })
+      .then(() => {
         console.log('--------111111');
         console.log(new Date());
         return networkStore.subscribe({
@@ -92,7 +96,7 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(1000);
+        return utilities.promiseTimeout(10000);
       })
       .then(() => {
         console.log('--------222222');
@@ -100,7 +104,7 @@ describe('Live-services', () => {
         return networkStore.save(entity3);
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(10000);
       })
       .then(() => {
         console.log('--------33333');
@@ -122,7 +126,11 @@ describe('Live-services', () => {
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
-      }).then(() => {
+      })
+      .then(() => {
+        return utilities.promiseTimeout(10000);
+      })
+      .then(() => {
         return networkStore.subscribe({
           onMessage: (m) => {
             messageUpdated = m;
@@ -136,13 +144,13 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(1000);
+        return utilities.promiseTimeout(10000);
       })
       .then(() => {
         return networkStore.save(updatedEntity);
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(10000);
       })
       .then(() => {
         expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
