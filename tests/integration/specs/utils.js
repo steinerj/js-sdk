@@ -379,3 +379,9 @@ function toBase64(textString) {
     throw new Error("Missing base64 conversion.");
   }
 }
+
+export function promiseTimeout(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+

@@ -60,7 +60,7 @@ describe('Live-services', () => {
     activeUser.registerForLiveService()
       .then((res) => {
         expect(res).to.equal(true);
-        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined){
+        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
         done();
@@ -73,10 +73,11 @@ describe('Live-services', () => {
     activeUser.registerForLiveService()
       .then((res) => {
         expect(res).to.equal(true);
-        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined){
+        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
-        networkStore.subscribe({
+      }).then(() => {
+        return networkStore.subscribe({
           onMessage: (m) => {
             messageCreated = m;
           },
@@ -86,18 +87,20 @@ describe('Live-services', () => {
           onError: (e) => {
             throw new Error(err);
           }
-        })
-          .then(() => {
-            networkStore.save(entity3)
-              .then((res) => {
-                setTimeout(()=>{
-                  expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
-                  done();
-                }, 10000)
-              })
-              .catch(done);
-          })
-          .catch(done);
+        });
+      })
+      .then(() => {
+        return utilities.promiseTimeout(4000);
+      })
+      .then(() => {
+        return networkStore.save(entity3);
+      })
+      .then(() => {
+        return utilities.promiseTimeout(4000);
+      })
+      .then(() => {
+        expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
+        done();
       })
       .catch(done);
   });
@@ -110,10 +113,11 @@ describe('Live-services', () => {
     activeUser.registerForLiveService()
       .then((res) => {
         expect(res).to.equal(true);
-        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined){
+        if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
-        networkStore.subscribe({
+      }).then(() => {
+        return networkStore.subscribe({
           onMessage: (m) => {
             messageUpdated = m;
           },
@@ -123,18 +127,20 @@ describe('Live-services', () => {
           onError: (e) => {
             throw new Error(err);
           }
-        })
-          .then(() => {
-            networkStore.save(updatedEntity)
-              .then(() => {
-                setTimeout(()=>{
-                  expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
-                  done();
-                }, 10000)
-              })
-              .catch(done);
-          })
-          .catch(done);
+        });
+      })
+      .then(() => {
+        return utilities.promiseTimeout(4000);
+      })
+      .then(() => {
+        return networkStore.save(updatedEntity);
+      })
+      .then(() => {
+        return utilities.promiseTimeout(4000);
+      })
+      .then(() => {
+        expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
+        done();
       })
       .catch(done);
   });
