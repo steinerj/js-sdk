@@ -100,7 +100,7 @@ describe('Live-services', () => {
         return networkStore.save(entity3);
       })
       .then(() => {
-        return utilities.promiseTimeout(1000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         console.log('--------33333');
@@ -142,7 +142,7 @@ describe('Live-services', () => {
         return networkStore.save(updatedEntity);
       })
       .then(() => {
-        return utilities.promiseTimeout(1000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
