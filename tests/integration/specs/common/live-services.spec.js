@@ -77,6 +77,8 @@ describe('Live-services', () => {
           expect(checkLocalStorageForSubscriptionKey()).to.equal(true);
         }
       }).then(() => {
+        console.log('--------111111');
+        console.log(new Date());
         return networkStore.subscribe({
           onMessage: (m) => {
             messageCreated = m;
@@ -90,15 +92,19 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
+        console.log('--------222222');
+        console.log(new Date());
         return networkStore.save(entity3);
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
+        console.log('--------33333');
+        console.log(new Date());
         expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
         done();
       })
@@ -130,13 +136,13 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
         return networkStore.save(updatedEntity);
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
         expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
