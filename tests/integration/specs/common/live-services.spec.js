@@ -68,9 +68,12 @@ describe('Live-services', () => {
       .catch(done);
   });
 
-  it('should subscribe user and receive messages for created items', (done) => {
-    const activeUser = Kinvey.User.getActiveUser();
-    activeUser.registerForLiveService()
+  it.only('should subscribe user and receive messages for created items', (done) => {
+    utilities.promiseTimeout(1000)
+      .then(() => {
+        const activeUser = Kinvey.User.getActiveUser();
+        return activeUser.registerForLiveService()
+      })
       .then((res) => {
         expect(res).to.equal(true);
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
@@ -78,13 +81,15 @@ describe('Live-services', () => {
         }
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
         console.log('--------111111');
         console.log(new Date());
         return networkStore.subscribe({
           onMessage: (m) => {
+            console.log('--------onmesssage');
+            console.log(new Date());
             messageCreated = m;
           },
           onStatus: (s) => {
@@ -96,7 +101,7 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(1);
       })
       .then(() => {
         console.log('--------222222');
@@ -104,7 +109,7 @@ describe('Live-services', () => {
         return networkStore.save(entity3);
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         console.log('--------33333');
@@ -128,7 +133,7 @@ describe('Live-services', () => {
         }
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         return networkStore.subscribe({
@@ -144,13 +149,13 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         return networkStore.save(updatedEntity);
       })
       .then(() => {
-        return utilities.promiseTimeout(10000);
+        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         expect(utilities.deleteEntityMetadata(messageUpdated)).to.deep.equal(updatedEntity);
