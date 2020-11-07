@@ -8,7 +8,6 @@ const collectionName = process.env.COLLECTION_NAME || 'TestData';
 var networkStore;
 var appCredentials;
 
-
 const checkLocalStorageForSubscriptionKey = () => {
   var hasSubscriptionKey = false;
   for (var key in localStorage) {
@@ -70,8 +69,11 @@ describe.only('Live-services', () => {
   });
 
   it('should subscribe user and receive messages for created items', (done) => {
+    utilities.promiseTimeout(1000)
+      .then(() => {
         const activeUser = Kinvey.User.getActiveUser();
-        activeUser.registerForLiveService()
+        return activeUser.registerForLiveService()
+      })
       .then((res) => {
         expect(res).to.equal(true);
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
@@ -82,8 +84,12 @@ describe.only('Live-services', () => {
         return utilities.promiseTimeout(1000);
       })
       .then(() => {
+        console.log('--------111111');
+        console.log(new Date());
         return networkStore.subscribe({
           onMessage: (m) => {
+            console.log('--------onmesssage');
+            console.log(new Date());
             messageCreated = m;
           },
           onStatus: (s) => {
@@ -95,12 +101,16 @@ describe.only('Live-services', () => {
         });
       })
       .then(() => {
+        console.log('--------222222');
+        console.log(new Date());
         return networkStore.save(entity3);
       })
       .then(() => {
         return utilities.promiseTimeout(4000);
       })
       .then(() => {
+        console.log('--------33333');
+        console.log(new Date());
         expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
         done();
       })
@@ -111,8 +121,11 @@ describe.only('Live-services', () => {
     const updatedEntity = Object.assign({}, entity1)
     updatedEntity.textField = 'updatedField';
 
-    const activeUser = Kinvey.User.getActiveUser();
-    activeUser.registerForLiveService()
+    utilities.promiseTimeout(1000)
+      .then(() => {
+        const activeUser = Kinvey.User.getActiveUser();
+        return activeUser.registerForLiveService()
+      })
       .then((res) => {
         expect(res).to.equal(true);
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
