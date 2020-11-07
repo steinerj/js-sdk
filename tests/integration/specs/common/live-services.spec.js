@@ -18,7 +18,7 @@ const checkLocalStorageForSubscriptionKey = () => {
   return hasSubscriptionKey;
 };
 
-describe.only('Live-services', () => {
+describe('Live-services', () => {
   networkStore = Kinvey.DataStore.collection(collectionName, Kinvey.DataStoreType.Network);
 
   var messageCreated;
@@ -84,12 +84,8 @@ describe.only('Live-services', () => {
         return utilities.promiseTimeout(1000);
       })
       .then(() => {
-        console.log('--------111111');
-        console.log(new Date());
         return networkStore.subscribe({
           onMessage: (m) => {
-            console.log('--------onmesssage');
-            console.log(new Date());
             messageCreated = m;
           },
           onStatus: (s) => {
@@ -101,16 +97,12 @@ describe.only('Live-services', () => {
         });
       })
       .then(() => {
-        console.log('--------222222');
-        console.log(new Date());
         return networkStore.save(entity3);
       })
       .then(() => {
         return utilities.promiseTimeout(4000);
       })
       .then(() => {
-        console.log('--------33333');
-        console.log(new Date());
         expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
         done();
       })
