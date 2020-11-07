@@ -8,6 +8,7 @@ const collectionName = process.env.COLLECTION_NAME || 'TestData';
 var networkStore;
 var appCredentials;
 
+
 const checkLocalStorageForSubscriptionKey = () => {
   var hasSubscriptionKey = false;
   for (var key in localStorage) {
