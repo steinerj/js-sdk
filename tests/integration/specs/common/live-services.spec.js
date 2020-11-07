@@ -18,7 +18,7 @@ const checkLocalStorageForSubscriptionKey = () => {
   return hasSubscriptionKey;
 };
 
-describe('Live-services', () => {
+describe.only('Live-services', () => {
   networkStore = Kinvey.DataStore.collection(collectionName, Kinvey.DataStoreType.Network);
 
   var messageCreated;
@@ -68,12 +68,9 @@ describe('Live-services', () => {
       .catch(done);
   });
 
-  it.only('should subscribe user and receive messages for created items', (done) => {
-    utilities.promiseTimeout(1000)
-      .then(() => {
+  it('should subscribe user and receive messages for created items', (done) => {
         const activeUser = Kinvey.User.getActiveUser();
-        return activeUser.registerForLiveService()
-      })
+        activeUser.registerForLiveService()
       .then((res) => {
         expect(res).to.equal(true);
         if (Kinvey.StorageProvider.Memory === undefined && Kinvey.StorageProvider.SQLite === undefined) {
@@ -84,12 +81,8 @@ describe('Live-services', () => {
         return utilities.promiseTimeout(1000);
       })
       .then(() => {
-        console.log('--------111111');
-        console.log(new Date());
         return networkStore.subscribe({
           onMessage: (m) => {
-            console.log('--------onmesssage');
-            console.log(new Date());
             messageCreated = m;
           },
           onStatus: (s) => {
@@ -101,19 +94,12 @@ describe('Live-services', () => {
         });
       })
       .then(() => {
-        return utilities.promiseTimeout(1);
-      })
-      .then(() => {
-        console.log('--------222222');
-        console.log(new Date());
         return networkStore.save(entity3);
       })
       .then(() => {
         return utilities.promiseTimeout(4000);
       })
       .then(() => {
-        console.log('--------33333');
-        console.log(new Date());
         expect(utilities.deleteEntityMetadata(messageCreated)).to.deep.equal(entity3);
         done();
       })
@@ -133,7 +119,7 @@ describe('Live-services', () => {
         }
       })
       .then(() => {
-        return utilities.promiseTimeout(4000);
+        return utilities.promiseTimeout(1000);
       })
       .then(() => {
         return networkStore.subscribe({
@@ -147,9 +133,6 @@ describe('Live-services', () => {
             throw new Error(err);
           }
         });
-      })
-      .then(() => {
-        return utilities.promiseTimeout(4000);
       })
       .then(() => {
         return networkStore.save(updatedEntity);
