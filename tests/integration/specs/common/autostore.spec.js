@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import isArray from 'lodash/isArray';
 import { init, DataStore, DataStoreType, User, Query, Errors } from '__SDK__';
 import { collectionName, deltaCollectionName } from '../config';
-import { randomString, createSampleCollectionData, cleanUpAppData } from '../utils';
+import { randomString, createSampleCollectionData, cleanUpAppData, promiseTimeout } from '../utils';
 
 const multiSaveErrorMessage = 'Unable to save an array of entities. Use "create" method to insert multiple entities.';
 const multiInsertErrorMessage = 'Unable to create an array of entities. Please create entities one by one or use API version 5 or newer.';
@@ -117,7 +117,7 @@ describe('AutoStore', function() {
       it('should return correct data with delta set', async function () {
         // Create sample data
         const sampleDocs1 = await createSampleCollectionData(deltaCollectionName, 2);
-
+        await promiseTimeout(2000);
         // Verify the docs are returned from the AUTO store type
         const autoTypeCollection = DataStore.collection(deltaCollectionName, DataStoreType.Auto, { useDeltaSet: true });
         const docs1 = await autoTypeCollection.find();
@@ -129,7 +129,7 @@ describe('AutoStore', function() {
 
         // Create sample data
         const sampleDocs2 = await createSampleCollectionData(deltaCollectionName, 1);
-
+        await promiseTimeout(2000);
         // Verify the docs are returned from the AUTO store type
         const docs2 = await autoTypeCollection.find();
         expect(docs2.length).to.equal(sampleDocs1.length + sampleDocs2.length);
@@ -140,7 +140,7 @@ describe('AutoStore', function() {
 
         // Create sample data
         const sampleDocs3 = await createSampleCollectionData(deltaCollectionName, 1);
-
+        await promiseTimeout(2000);
         // Verify the docs are returned from the AUTO store type
         const docs3 = await autoTypeCollection.find();
         expect(docs3.length).to.equal(sampleDocs1.length + sampleDocs2.length + sampleDocs3.length);
